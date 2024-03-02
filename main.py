@@ -2,8 +2,9 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+import matplotlib.pyplot as plt
+import numpy as np
 
-# Define constants
 IMAGE_HEIGHT = 100
 IMAGE_WIDTH = 100
 BATCH_SIZE = 32
@@ -69,8 +70,29 @@ test_results = model.predict(test_generator)
 class_labels = train_generator.class_indices.keys()
 print("Accuracy for each sign image:")
 
+class_accuracies = []
+
 for i, class_label in enumerate(class_labels):
     class_index = train_generator.class_indices[class_label]
     class_results = test_results[test_generator.classes == class_index]
     class_accuracy = sum(class_results.argmax(axis=1) == i) / len(class_results) * 100
+    class_accuracies.append(class_accuracy)
     print(f"{class_label}: {class_accuracy:.2f}%")
+
+# Plotting results
+plt.figure(figsize=(10, 5))
+
+# Bar chart
+plt.subplot(1, 2, 1)
+plt.bar(class_labels, class_accuracies, color='skyblue')
+plt.xlabel('Food Items')
+plt.ylabel('Accuracy (%)')
+plt.title('Accuracy for Each Food Item')
+
+# Pie chart
+plt.subplot(1, 2, 2)
+plt.pie(class_accuracies, labels=class_labels, autopct='%1.1f%%', colors=['lightgreen', 'lightcoral', 'lightskyblue'])
+plt.title('Accuracy Distribution')
+
+plt.tight_layout()
+plt.show()
