@@ -35,19 +35,19 @@ datagen = ImageDataGenerator(
     horizontal_flip=True)
 
 train_generator = datagen.flow_from_directory(
-    'D:/Internship_Tasks/Prodigy_Infotech_Tasks/Hand gesture_04/dataset/train',  
+    'dataset/train',  
     target_size=(IMAGE_HEIGHT, IMAGE_WIDTH),
     batch_size=BATCH_SIZE,
     class_mode='categorical')
 
 validation_generator = datagen.flow_from_directory(
-    'D:/Internship_Tasks/Prodigy_Infotech_Tasks/Hand gesture_04/dataset/validation',  
+    'dataset/validation',  
     target_size=(IMAGE_HEIGHT, IMAGE_WIDTH),
     batch_size=BATCH_SIZE,
     class_mode='categorical')
 
 test_generator = datagen.flow_from_directory(
-    'D:/Internship_Tasks/Prodigy_Infotech_Tasks/Hand gesture_04/dataset/test',  
+    'dataset/test',  
     target_size=(IMAGE_HEIGHT, IMAGE_WIDTH),
     batch_size=BATCH_SIZE,
     class_mode='categorical',
